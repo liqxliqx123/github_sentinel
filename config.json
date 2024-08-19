@@ -1,0 +1,8 @@
+{
+    "github_token": "",
+    "subscriptions": [
+        "langchain-ai/langchain"
+    ],
+    "notification_email": "liqxliqx@126.com",
+    "check_interval": "daily"
+}

@@ -1,18 +1,31 @@
 import schedule
 import time
 
-class Scheduler:
-    def __init__(self, config):
-        self.config = config
+import schedule
+import time
+import threading
 
-    def run(self, update_fetcher, notifier, report_generator):
-        schedule.every().day.at("09:00").do(self.job, update_fetcher, notifier, report_generator)
+
+class Scheduler:
+    def __init__(self, config, update_fetcher, notifier, report_generator):
+        self.config = config
+        self.update_fetcher = update_fetcher
+        self.notifier = notifier
+        self.report_generator = report_generator
+        self.scheduler_thread = threading.Thread(target=self.run)
+        self.scheduler_thread.daemon = True
+
+    def start(self):
+        self.scheduler_thread.start()
+
+    def run(self):
+        schedule.every().day.at("09:00").do(self.job)
 
         while True:
             schedule.run_pending()
             time.sleep(1)
 
-    def job(self, update_fetcher, notifier, report_generator):
-        updates = update_fetcher.fetch_updates()
-        report = report_generator.generate_report(updates)
-        notifier.send_notification(report)
+    def job(self):
+        updates = self.update_fetcher.fetch_updates()
+        report = self.report_generator.generate_report(updates)
+        self.notifier.send_notification(report)
