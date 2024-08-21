@@ -1,5 +1,6 @@
 {
-    "github_token": "",
+    "export_base_dir_name": "daily_export",
+    "report_dir_name": "daily_report",
     "subscriptions": [
         "langchain-ai/langchain"
     ],

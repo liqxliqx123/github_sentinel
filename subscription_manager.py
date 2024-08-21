@@ -1,5 +1,6 @@
 from config import Config
 
+
 class SubscriptionManager:
     def __init__(self, config):
         self.config = config
