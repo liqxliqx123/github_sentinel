@@ -17,13 +17,13 @@ def run_scheduler(scheduler):
 def main():
     config = Config.load()
 
-    subscription_manager = SubscriptionManager(config)
-    update_fetcher = UpdateFetcher(config)
-    exporter = Exporter(config)
-    notifier = Notifier(config)
+    subscription_manager = SubscriptionManager()
+    update_fetcher = UpdateFetcher()
+    exporter = Exporter()
+    notifier = Notifier()
     llm_module = LLMModule()
-    report_generator = ReportGenerator(llm_module, config)
-    scheduler = Scheduler(config, update_fetcher, notifier, report_generator)
+    report_generator = ReportGenerator(llm_module)
+    scheduler = Scheduler(update_fetcher, notifier, report_generator)
 
     # Print help message on startup
     print_help()

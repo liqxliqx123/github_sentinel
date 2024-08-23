@@ -1,10 +1,12 @@
 import os
 from datetime import datetime
 
+from config import Config
+
 
 class Exporter:
-    def __init__(self, config):
-        self.config = config
+    def __init__(self):
+        self.config = Config.get_config()
         self.base_path = self.config["export_base_dir_name"]
         self.date_str = datetime.now().strftime('%Y-%m-%d')
 

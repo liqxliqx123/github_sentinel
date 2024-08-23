@@ -5,10 +5,12 @@ import schedule
 import time
 import threading
 
+from config import Config
+
 
 class Scheduler:
-    def __init__(self, config, update_fetcher, notifier, report_generator):
-        self.config = config
+    def __init__(self, update_fetcher, notifier, report_generator):
+        self.config = Config.get_config()
         self.update_fetcher = update_fetcher
         self.notifier = notifier
         self.report_generator = report_generator

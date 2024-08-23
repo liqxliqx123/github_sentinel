@@ -1,8 +1,16 @@
 import json
 import os
 
+global_config = {}
+
 
 class Config:
+
+    @staticmethod
+    def get_config():
+        global global_config
+        return global_config
+
     @staticmethod
     def load(config_file="config.json"):
         with open(config_file, 'r') as file:
@@ -18,7 +26,8 @@ class Config:
             raise Exception(
                 "No OpenAI API key found. Please set the OPENAI_API_KEY environment variable or provide it in the config file.")
         config['github_token'] = token
-        return config
+        global global_config
+        global_config = config
 
     @staticmethod
     def save(config, config_file="config.json"):

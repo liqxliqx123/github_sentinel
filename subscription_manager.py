@@ -2,9 +2,9 @@ from config import Config
 
 
 class SubscriptionManager:
-    def __init__(self, config):
-        self.config = config
-        self.subscriptions = config['subscriptions']
+    def __init__(self):
+        self.config = Config.get_config()
+        self.subscriptions = self.config['subscriptions']
 
     def add_subscription(self, repo):
         if repo not in self.subscriptions:

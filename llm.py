@@ -1,5 +1,6 @@
 import os
 from openai import OpenAI
+from config import Config
 
 
 class LLMModule:
@@ -8,12 +9,17 @@ class LLMModule:
             # This is the default and can be omitted
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
+        with open("prompt/system_prompt.txt", "r") as f:
+            self.system_prompt = f.read()
+        conf = Config.get_config()
+        self.model = conf["model_name"]
 
     def generate_daily_report(self, markdown_content):
-        prompt = f"Please summarize the following project updates into a formal daily report:\n\n{markdown_content}"
+        prompt = f"{markdown_content}"
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=self.model,
             messages=[
+                {"role": "system", "content": self.system_prompt},
                 {"role": "user", "content": prompt}
             ]
         )
