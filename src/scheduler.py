@@ -1,11 +1,8 @@
 import schedule
 import time
-
-import schedule
-import time
 import threading
 
-from config import Config
+from src.config import Config
 
 
 class Scheduler:

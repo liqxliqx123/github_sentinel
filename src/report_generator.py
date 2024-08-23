@@ -1,6 +1,7 @@
 import os
 
-from config import Config
+from src.config import Config
+from utils.logger import LogManager
 
 
 class ReportGenerator:
@@ -12,11 +13,14 @@ class ReportGenerator:
             os.makedirs(self.report_dir_name, exist_ok=True)
 
     def generate_daily_report(self, filepath):
-        print(filepath)
+        logger = LogManager.get_logger()
+        logger.debug(filepath)
         with open(filepath, 'r') as md_file:
             content = md_file.read()
 
         summary = self.llm_module.generate_daily_report(content)
+        if not summary:
+            return
 
         report_dir_name = os.path.dirname(os.path.dirname(filepath))
 

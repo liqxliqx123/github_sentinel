@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from config import Config
+from src.config import Config
 
 
 class Exporter:

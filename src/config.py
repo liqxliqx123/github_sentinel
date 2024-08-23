@@ -12,7 +12,7 @@ class Config:
         return global_config
 
     @staticmethod
-    def load(config_file="config.json"):
+    def load(config_file="settings.json"):
         with open(config_file, 'r') as file:
             config = json.load(file)
 
@@ -30,6 +30,6 @@ class Config:
         global_config = config
 
     @staticmethod
-    def save(config, config_file="config.json"):
+    def save(config, config_file="settings.json"):
         with open(config_file, 'w') as file:
             json.dump(config, file, indent=4)
