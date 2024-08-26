@@ -11,24 +11,26 @@ from src.llm import LLMModule
 from utils.token_counter import TokenCounter
 
 
-def run_scheduler(scheduler):
-    scheduler.start()
+class Initializer:
+    def __init__(self):
+        self.subscription_manager = SubscriptionManager()
+        self.update_fetcher = UpdateFetcher()
+        self.exporter = Exporter()
+        self.notifier = Notifier()
+        self.llm_module = LLMModule()
+        self.report_generator = ReportGenerator()
+        self.scheduler = Scheduler(self.update_fetcher, self.notifier, self.report_generator)
+        self.scheduler.start()
 
+    def run_scheduler(self, scheduler):
+        scheduler.start()
 
-def run():
-    subscription_manager = SubscriptionManager()
-    update_fetcher = UpdateFetcher()
-    exporter = Exporter()
-    notifier = Notifier()
-    llm_module = LLMModule()
-    report_generator = ReportGenerator(llm_module)
-    scheduler = Scheduler(update_fetcher, notifier, report_generator)
+    def command_run(self):
+        # Print help message on startup
+        print_help()
+        # Run Scheduler in background
+        threading.Thread(target=self.run_scheduler, args=(self.scheduler,)).start()
 
-    # Print help message on startup
-    print_help()
-
-    # Run Scheduler in background
-    threading.Thread(target=run_scheduler, args=(scheduler,)).start()
-
-    # Start command loop for interactive input
-    handle_command(subscription_manager, update_fetcher, scheduler, report_generator, exporter)
+        # Start command loop for interactive input
+        handle_command(self.subscription_manager, self.update_fetcher, self.scheduler, self.report_generator,
+                       self.exporter)

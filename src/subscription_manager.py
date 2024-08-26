@@ -19,3 +19,6 @@ class SubscriptionManager:
     def save_subscriptions(self):
         self.config['subscriptions'] = self.subscriptions
         Config.save(self.config)
+
+    def get_subscriptions(self):
+        return self.subscriptions

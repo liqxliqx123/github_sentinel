@@ -11,5 +11,5 @@
         "level": "debug",
         "dir": "logs"
     },
-    "dry_run": true
+    "dry_run": false
 }

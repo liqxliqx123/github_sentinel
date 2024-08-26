@@ -11,7 +11,7 @@ class LLMModule:
             # This is the default and can be omitted
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
-        with open("prompt/system_prompt.txt", "r") as f:
+        with open("prompt/system_prompt.txt", "r", encoding="utf-8") as f:
             self.system_prompt = f.read()
         conf = Config.get_config()
         self.model = conf["model_name"]
