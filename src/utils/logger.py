@@ -1,17 +1,20 @@
 from loguru import logger
 import os
 import sys
-from src.config import Config
 
-Log = None
+from src.config import Config
 
 
 class LogManager:
+    _logger = None
+
     def __init__(self):
-        conf = Config.get_config()
+        conf = Config().config
         self.log_dir = conf["log"]["dir"]
         self.log_level = conf["log"]["level"].upper()
-        self._setup_logger()
+        if LogManager._logger is None:
+            self._setup_logger()
+        self.logger = LogManager._logger
 
     def _setup_logger(self):
         # 创建日志目录
@@ -39,19 +42,14 @@ class LogManager:
         error_log_file = os.path.join(self.log_dir, "error.log")
         logger.add(error_log_file, level="ERROR", format=log_format, rotation="50 MB", compression="zip")
 
-        global Log
-        Log = logger
-
-    @staticmethod
-    def get_logger():
-        global Log
-        return Log
+        LogManager._logger = logger
 
 
 # 使用示例
 if __name__ == "__main__":
-    LogManager(log_dir="../logs", log_level="DEBUG")
-    logger = LogManager.get_logger()
+    # LogManager(log_dir="../../logs", log_level="DEBUG")
+    config = Config("../settings.json").config
+    logger = LogManager(config).logger
 
     logger.info("This is an info message.")
     logger.debug("This is a debug message.")

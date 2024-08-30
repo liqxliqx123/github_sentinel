@@ -1,10 +1,67 @@
-from src.config import Config
+import os
+import smtplib
+import markdown2
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
+from utils.logger import LogManager
+from config import Config
 
 
 class Notifier:
     def __init__(self):
-        self.config = Config.get_config()
+        self.config = Config().config
+        self.email_settings = self.config["email"]
+        self.logger = LogManager().logger
 
-    def send_notification(self, message):
-        # 示例：发送邮件通知
-        print(f"Sending notification: {message}")
+    def notify(self, repo, report):
+        if self.email_settings:
+            self.send_email(repo, report)
+            self.logger.info("邮件已发送")
+        else:
+            self.logger.warning("邮件设置未配置正确，无法发送通知")
+
+    def send_email(self, repo, report):
+        self.logger.info("准备发送邮件")
+        msg = MIMEMultipart()
+        msg['From'] = self.email_settings['from']
+        msg['To'] = self.email_settings['to']
+        msg['Subject'] = f"[GitHubSentinel]{repo} 进展简报"
+
+        # 将Markdown内容转换为HTML
+        html_report = markdown2.markdown(report)
+
+        msg.attach(MIMEText(html_report, 'html'))
+        try:
+            with smtplib.SMTP_SSL(self.email_settings['smtp_server'], self.email_settings['smtp_port']) as server:
+                self.logger.debug("登录SMTP服务器")
+                server.login(msg['From'], os.getenv("EMAIL_PASSWORD"))
+                server.sendmail(msg['From'], msg['To'], msg.as_string())
+                self.logger.info("邮件发送成功！")
+        except Exception as e:
+            self.logger.error(f"发送邮件失败：{str(e)}")
+
+
+if __name__ == '__main__':
+    from config import Config
+    conf = Config().config
+    LogManager()
+    notifier = Notifier()
+
+    test_repo = "DjangoPeng/openai-quickstart"
+    test_report = """
+# DjangoPeng/openai-quickstart 项目进展
+
+## 时间周期：2024-08-24
+
+## 新增功能
+- Assistants API 代码与文档
+
+## 主要改进
+- 适配 LangChain 新版本
+
+## 修复问题
+- 关闭了一些未解决的问题。
+
+"""
+    notifier.notify(test_repo, test_report)

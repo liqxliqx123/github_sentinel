@@ -6,7 +6,7 @@ from src.config import Config
 
 class Exporter:
     def __init__(self):
-        self.config = Config.get_config()
+        self.config = Config().config
         self.base_path = self.config["export_base_dir_name"]
         self.date_str = datetime.now().strftime('%Y-%m-%d')
 

@@ -5,7 +5,7 @@ from src.config import Config
 
 class TokenCounter:
     def __init__(self):
-        conf = Config.get_config()
+        conf = Config().config
         self.model = conf["model_name"]
         self.encoding = tiktoken.encoding_for_model(self.model)
 

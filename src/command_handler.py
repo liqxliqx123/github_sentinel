@@ -1,4 +1,4 @@
-from utils.logger import LogManager
+from src.utils.logger import LogManager
 
 
 def handle_command(subscription_manager, update_fetcher, scheduler, report_generator, exporter):

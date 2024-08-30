@@ -5,18 +5,17 @@ from src.config import Config
 from src.exporter import Exporter
 from src.github_client import UpdateFetcher
 from src.llm import LLMModule
-from utils import logger
-from utils.logger import LogManager
+from src.utils.logger import LogManager
 
 
 class ReportGenerator:
     def __init__(self):
         self.llm_module = LLMModule()
-        config = Config.get_config()
+        config = Config().config
         self.report_dir_name = config["report_dir_name"]
         if self.report_dir_name:
             os.makedirs(self.report_dir_name, exist_ok=True)
-        self.logger = LogManager.get_logger()
+        self.logger = LogManager().logger
 
     def generate_daily_report(self, filepath):
         self.logger.debug(filepath)
@@ -37,13 +36,13 @@ class ReportGenerator:
 
         return report_filename
 
-    def get_report_content(self, repo: str) -> (str, str, str, str):
+    def get_report_content(self, repo: str, timedelta: int) -> (str, str, str, str):
         # TODO: get report content from report file
         report_issue_file_path = ""
         report_pr_file_path = ""
         # fetch
         self.logger.debug("Fetching updates for all subscribed repositories...")
-        update_fetcher = UpdateFetcher()
+        update_fetcher = UpdateFetcher(data_range=timedelta)
         update_fetcher.fetch_data(repo)
         self.logger.debug("Updates fetched successfully.")
 

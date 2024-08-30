@@ -3,7 +3,7 @@ from src.config import Config
 
 class SubscriptionManager:
     def __init__(self):
-        self.config = Config.get_config()
+        self.config = get_config()
         self.subscriptions = self.config['subscriptions']
 
     def add_subscription(self, repo):
@@ -18,7 +18,7 @@ class SubscriptionManager:
 
     def save_subscriptions(self):
         self.config['subscriptions'] = self.subscriptions
-        Config.save(self.config)
+        save()
 
     def get_subscriptions(self):
         return self.subscriptions

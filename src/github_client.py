@@ -5,10 +5,10 @@ from src.config import Config
 
 
 class UpdateFetcher:
-    def __init__(self, data_range=1):
+    def __init__(self, data_range=1, since=None, until=None):
         self.until = None
         self.since = None
-        self.config = Config.get_config()
+        self.config = Config().config
         self.headers = {"Authorization": f"token {self.config['github_token']}"}
         self.fetched_data = {}
         self.get_data_range(data_range)

@@ -1,15 +1,28 @@
 {
-    "export_base_dir_name": "daily_export",
-    "report_dir_name": "daily_report",
-    "subscriptions": [
-        "langchain-ai/langchain"
-    ],
-    "notification_email": "liqxliqx@126.com",
-    "check_interval": "daily",
-    "model_name": "gpt-4o-mini",
-    "log": {
-        "level": "debug",
-        "dir": "logs"
-    },
-    "dry_run": false
+  "export_base_dir_name": "daily_export",
+  "report_dir_name": "daily_report",
+  "subscriptions": {
+    "github": [
+      "langchain-ai/langchain"
+    ]
+  },
+  "check_interval": "daily",
+  "model_name": "gpt-4o-mini",
+  "log": {
+    "level": "debug",
+    "dir": "logs"
+  },
+  "dry_run": false,
+  "schedule": {
+    "github": {
+      "freq_days": 1,
+      "execution_time": "08:00"
+    }
+  },
+  "email": {
+    "smtp_server": "smtp.126.com",
+    "smtp_port": 465,
+    "from": "liqxliqx@126.com",
+    "to": "liqxliqx@126.com"
+  }
 }

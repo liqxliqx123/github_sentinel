@@ -1,19 +1,25 @@
 import json
 import os
 
-global_config = {}
+from src.utils.path import get_settings_json_path
+
+
+def save(config, config_file="settings.json"):
+    with open(config_file, 'w') as file:
+        json.dump(config, file, indent=4)
 
 
 class Config:
+    _global_config = None
 
-    @staticmethod
-    def get_config():
-        global global_config
-        return global_config
+    def __init__(self):
 
-    @staticmethod
-    def load(config_file="settings.json"):
-        with open(config_file, 'r') as file:
+        if Config._global_config:
+            self.config = Config._global_config
+            return
+
+        file_path = get_settings_json_path()
+        with open(file_path, 'r') as file:
             config = json.load(file)
 
         token = os.getenv("GITHUB_TOKEN")
@@ -25,11 +31,12 @@ class Config:
         if not api_key:
             raise Exception(
                 "No OpenAI API key found. Please set the OPENAI_API_KEY environment variable or provide it in the config file.")
-        config['github_token'] = token
-        global global_config
-        global_config = config
 
-    @staticmethod
-    def save(config, config_file="settings.json"):
-        with open(config_file, 'w') as file:
-            json.dump(config, file, indent=4)
+        mail_password = os.getenv("EMAIL_PASSWORD")
+        if not mail_password:
+            raise Exception(
+                "No EMAIL password found. Please set the MAIL_POP3_PASSWORD environment variable or provide it in the config file.")
+
+        config['github_token'] = token
+        self.config = config
+        Config._global_config = config
