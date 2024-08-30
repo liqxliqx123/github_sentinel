@@ -3,8 +3,9 @@ import time
 
 from src.config import Config
 from src.notifier import Notifier
-from src.report_generator import ReportGenerator
 from src.utils.logger import LogManager
+from fetcher.hacker_news import fetch_hackernews_top_stories
+from report_generator import ReportGenerator
 
 
 def github_job(timedelta: int):
@@ -17,7 +18,7 @@ def github_job(timedelta: int):
             repo, timedelta)
         logger.info(f"end to generate report for {repo}")
         content = f"{issue_content}\n\n{pr_content}"
-        Notifier().notify(repo, content)
+        Notifier().notify(f"[GitHubSentinel]{repo} 进展简报", content)
 
 
 def run_github_job():
@@ -25,7 +26,24 @@ def run_github_job():
     freq_days = config["schedule"]["github"]["freq_days"]
     execution_time = config["schedule"]["github"]["execution_time"]
     github_job(freq_days)
-    schedule.every(freq_days).day().at(execution_time).do(github_job)
+    schedule.every(freq_days).day.at(execution_time).do(github_job)
+
+
+def hacker_news_job():
+    logger = LogManager().logger
+    logger.info("begin hacker news job...")
+    stories = fetch_hackernews_top_stories()
+    summary = ReportGenerator().generate_hacker_news_report(stories)
+    if summary:
+        Notifier().notify("[GitHubSentinel] hacker_news 进展简报", summary)
+
+
+def run_hacker_news_job():
+    config = Config().config
+    freq_days = config["schedule"]["hacker_news"]["freq_days"]
+    execution_time = config["schedule"]["hacker_news"]["execution_time"]
+    hacker_news_job()
+    schedule.every(freq_days).day.at(execution_time).do(hacker_news_job)
 
 
 # for test
@@ -41,6 +59,7 @@ def run_test_mail():
 
 def main():
     run_github_job()
+    run_hacker_news_job()
     # run_test_mail()
     while True:
         schedule.run_pending()  # 检查是否有任务需要执行

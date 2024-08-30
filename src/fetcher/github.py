@@ -4,7 +4,7 @@ import requests
 from src.config import Config
 
 
-class UpdateFetcher:
+class GithubFetcher:
     def __init__(self, data_range=1, since=None, until=None):
         self.until = None
         self.since = None

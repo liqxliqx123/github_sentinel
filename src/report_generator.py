@@ -3,7 +3,7 @@ import os
 
 from src.config import Config
 from src.exporter import Exporter
-from src.github_client import UpdateFetcher
+from src.fetcher.github import GithubFetcher
 from src.llm import LLMModule
 from src.utils.logger import LogManager
 
@@ -22,7 +22,7 @@ class ReportGenerator:
         with open(filepath, 'r') as md_file:
             content = md_file.read()
 
-        summary = self.llm_module.generate_daily_report(content)
+        summary = self.llm_module.generate_report("github", content)
         if not summary:
             return
         report_dir_name = os.path.dirname(os.path.dirname(filepath))
@@ -42,7 +42,7 @@ class ReportGenerator:
         report_pr_file_path = ""
         # fetch
         self.logger.debug("Fetching updates for all subscribed repositories...")
-        update_fetcher = UpdateFetcher(data_range=timedelta)
+        update_fetcher = GithubFetcher(data_range=timedelta)
         update_fetcher.fetch_data(repo)
         self.logger.debug("Updates fetched successfully.")
 
@@ -93,3 +93,15 @@ class ReportGenerator:
         if len(report_pr_file_paths) > 0:
             report_pr_file_path = report_pr_file_paths[0]
         return report_issue_content, report_pr_content, report_issue_file_path, report_pr_file_path
+
+    def generate_hacker_news_report(self, stories):
+        summary = ""
+        content = io.StringIO()
+        for story in stories:
+            content.write(f"{story['title']}\n{story['link']}\n\n")
+        try:
+            summary = self.llm_module.generate_report("hacker_news", content.getvalue())
+        except Exception as e:
+            self.logger.error(f"Error generating hacker news report: {e}")
+        content.close()
+        return summary

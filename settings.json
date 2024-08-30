@@ -17,6 +17,10 @@
     "github": {
       "freq_days": 1,
       "execution_time": "08:00"
+    },
+    "hacker_news": {
+      "freq_days": 1,
+      "execution_time": "08:00"
     }
   },
   "email": {

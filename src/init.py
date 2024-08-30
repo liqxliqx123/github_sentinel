@@ -1,10 +1,9 @@
 import threading
 
 from src.subscription_manager import SubscriptionManager
-from src.github_client import UpdateFetcher
+from src.fetcher.github import GithubFetcher
 from src.notifier import Notifier
 from src.report_generator import ReportGenerator
-from src.scheduler import Scheduler
 from src.command_handler import handle_command, print_help
 from src.exporter import Exporter
 from src.llm import LLMModule
@@ -13,7 +12,7 @@ from src.llm import LLMModule
 class Initializer:
     def __init__(self):
         self.subscription_manager = SubscriptionManager()
-        self.update_fetcher = UpdateFetcher()
+        self.update_fetcher = GithubFetcher()
         self.exporter = Exporter()
         self.notifier = Notifier()
         self.llm_module = LLMModule()

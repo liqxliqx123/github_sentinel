@@ -2,7 +2,7 @@ import os
 from openai import OpenAI
 from src.config import Config
 from src.utils.logger import LogManager
-from src.utils.path import get_prompt_path
+from src.utils.path import get_gpt_4o_mini_prompt_path
 from src.utils.token_counter import TokenCounter
 
 
@@ -12,17 +12,14 @@ class LLMModule:
             # This is the default and can be omitted
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
-        file_path = os.path.join(get_prompt_path(), "system_prompt.txt")
-        with open(file_path, "r", encoding="utf-8") as f:
-            self.system_prompt = f.read()
         self.conf = Config().config
         self.model = self.conf["model_name"]
 
-    def generate_daily_report(self, markdown_content):
+    def generate_daily_report(self, system_prompt, markdown_content):
         logger = LogManager().logger
         prompt = f"{markdown_content}"
         messages = [
-            {"role": "system", "content": self.system_prompt},
+            {"role": "system", "content": system_prompt},
             {"role": "user", "content": prompt}
         ]
         logger.debug(f"message costs tokens: {TokenCounter().count_message_tokens(messages)}")
@@ -34,3 +31,12 @@ class LLMModule:
             logger.debug(response)
             return response.choices[0].message.content
         return None
+
+    def generate_report(self, report_type: str, markdown_content):
+        if report_type == "github":
+            file_path = os.path.join(get_gpt_4o_mini_prompt_path(), "github_prompt.txt")
+        else:
+            file_path = os.path.join(get_gpt_4o_mini_prompt_path(), "hacker_news_prompt.txt")
+        with open(file_path, "r", encoding="utf-8") as f:
+            system_prompt = f.read()
+            return self.generate_daily_report(system_prompt, markdown_content)
