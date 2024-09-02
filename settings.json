@@ -7,7 +7,16 @@
     ]
   },
   "check_interval": "daily",
-  "model_name": "gpt-4o-mini",
+  "model_name": "gemma2",
+  "model": {
+    "gpt_4o_mini": {
+      "name": "gpt-4o-mini"
+    },
+    "gemma2": {
+      "name": "gemma2",
+      "url": "http://localhost:11434/api/chat"
+    }
+  },
   "log": {
     "level": "debug",
     "dir": "logs"

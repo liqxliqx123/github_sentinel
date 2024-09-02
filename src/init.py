@@ -6,7 +6,7 @@ from src.notifier import Notifier
 from src.report_generator import ReportGenerator
 from src.command_handler import handle_command, print_help
 from src.exporter import Exporter
-from src.llm import LLMModule
+from src.llm.gpt4 import GPT4Module
 
 
 class Initializer:
@@ -15,7 +15,7 @@ class Initializer:
         self.update_fetcher = GithubFetcher()
         self.exporter = Exporter()
         self.notifier = Notifier()
-        self.llm_module = LLMModule()
+        self.llm_module = GPT4Module()
         self.report_generator = ReportGenerator()
         self.scheduler = Scheduler(self.update_fetcher, self.notifier, self.report_generator)
         self.scheduler.start()

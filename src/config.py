@@ -1,7 +1,7 @@
 import json
 import os
 
-from src.utils.path import get_settings_json_path
+from utils.path import get_settings_json_path
 
 
 def save(config, config_file="settings.json"):

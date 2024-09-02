@@ -1,0 +1,1 @@
+2024-09-02 00:14:01 | ERROR    | report_generator:generate_hacker_news_report:105 - Error generating hacker news report: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=30)

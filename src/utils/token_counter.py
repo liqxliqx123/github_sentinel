@@ -1,6 +1,6 @@
 import tiktoken
 
-from src.config import Config
+from config import Config
 
 
 class TokenCounter:

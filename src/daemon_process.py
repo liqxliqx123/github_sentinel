@@ -1,9 +1,9 @@
 import schedule
 import time
 
-from src.config import Config
-from src.notifier import Notifier
-from src.utils.logger import LogManager
+from config import Config
+from notifier import Notifier
+from utils.logger import LogManager
 from fetcher.hacker_news import fetch_hackernews_top_stories
 from report_generator import ReportGenerator
 

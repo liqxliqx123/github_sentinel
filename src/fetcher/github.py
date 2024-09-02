@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 import requests
-from src.config import Config
+from config import Config
 
 
 class GithubFetcher:

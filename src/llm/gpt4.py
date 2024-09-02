@@ -1,19 +1,19 @@
 import os
 from openai import OpenAI
-from src.config import Config
-from src.utils.logger import LogManager
-from src.utils.path import get_gpt_4o_mini_prompt_path
-from src.utils.token_counter import TokenCounter
+from config import Config
+from utils.logger import LogManager
+from utils.path import get_gpt_4o_mini_prompt_path
+from utils.token_counter import TokenCounter
 
 
-class LLMModule:
+class GPT4Module:
     def __init__(self):
         self.client = OpenAI(
             # This is the default and can be omitted
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
         self.conf = Config().config
-        self.model = self.conf["model_name"]
+        self.model = self.conf["model"]["gpt_4o_mini"]["name"]
 
     def generate_daily_report(self, system_prompt, markdown_content):
         logger = LogManager().logger
@@ -30,7 +30,7 @@ class LLMModule:
             )
             logger.debug(response)
             return response.choices[0].message.content
-        return None
+        return ""
 
     def generate_report(self, report_type: str, markdown_content):
         if report_type == "github":

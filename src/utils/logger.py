@@ -2,7 +2,7 @@ from loguru import logger
 import os
 import sys
 
-from src.config import Config
+from config import Config
 
 
 class LogManager:

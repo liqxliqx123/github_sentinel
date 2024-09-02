@@ -1,16 +1,16 @@
 import io
 import os
 
-from src.config import Config
-from src.exporter import Exporter
-from src.fetcher.github import GithubFetcher
-from src.llm import LLMModule
-from src.utils.logger import LogManager
+from config import Config
+from exporter import Exporter
+from fetcher.github import GithubFetcher
+from llm.llm import LLM
+from utils.logger import LogManager
 
 
 class ReportGenerator:
     def __init__(self):
-        self.llm_module = LLMModule()
+        self.llm = LLM()
         config = Config().config
         self.report_dir_name = config["report_dir_name"]
         if self.report_dir_name:
@@ -22,7 +22,7 @@ class ReportGenerator:
         with open(filepath, 'r') as md_file:
             content = md_file.read()
 
-        summary = self.llm_module.generate_report("github", content)
+        summary = self.llm.model.generate_report("github", content)
         if not summary:
             return
         report_dir_name = os.path.dirname(os.path.dirname(filepath))
@@ -100,7 +100,7 @@ class ReportGenerator:
         for story in stories:
             content.write(f"{story['title']}\n{story['link']}\n\n")
         try:
-            summary = self.llm_module.generate_report("hacker_news", content.getvalue())
+            summary = self.llm.model.generate_report("hacker_news", content.getvalue())
         except Exception as e:
             self.logger.error(f"Error generating hacker news report: {e}")
         content.close()
