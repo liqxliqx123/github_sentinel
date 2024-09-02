@@ -1,0 +1,24 @@
+2024-09-02 14:00:49 | INFO     | daemon_process:github_job:13 - begin github job...
+2024-09-02 14:00:49 | INFO     | daemon_process:github_job:16 - begin to generate report for langchain-ai/langchain
+2024-09-02 14:00:49 | DEBUG    | report_generator:get_report_content:44 - Fetching updates for all subscribed repositories...
+2024-09-02 14:00:53 | DEBUG    | report_generator:get_report_content:47 - Updates fetched successfully.
+2024-09-02 14:00:53 | DEBUG    | report_generator:get_report_content:55 - Updates exported to Markdown files.
+2024-09-02 14:00:53 | DEBUG    | report_generator:generate_daily_report:21 - daily_export/langchain-ai_langchain/2024-09-02_issues.md
+2024-09-02 14:00:53 | DEBUG    | gpt4:generate_daily_report:25 - message costs tokens: 844
+2024-09-02 14:00:57 | DEBUG    | gpt4:generate_daily_report:31 - ChatCompletion(id='chatcmpl-A2uPPXfWRCILVNbFkyAAbmnHV1HC6', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='# langchain-ai/langchain 2024-09-02\n\n## 主要变更\n* 修复了Cassandra文档中的拼写错误。\n* 更新了Hugging Face管道的文档，返回完整文本提示的说明。\n* 移除了一些未使用的导入。\n* 进行了PR审查流程的文档更新。\n* 处理了不可转换为布尔值的可序列化字段的问题。\n\n## 处理的问题\n* 提出了解决浏览器自动化中“请求过大”问题的改进方案。\n* 处理了QdrantVectorStore类型的自查询检索器不受支持的问题。\n* 修复了Serializable中的_is_field_useful执行期间可能出现的错误。\n\n## 总结\n在此时间范围内，项目进行了多个文档更新和修复，处理了一些遗留问题，优化了代码的可用性和性能。整体上，项目在功能和稳定性上都有所提升。', refusal=None, role='assistant', function_call=None, tool_calls=None))], created=1725256855, model='gpt-4o-mini-2024-07-18', object='chat.completion', service_tier=None, system_fingerprint='fp_f33667828e', usage=CompletionUsage(completion_tokens=210, prompt_tokens=847, total_tokens=1057))
+2024-09-02 14:00:57 | DEBUG    | report_generator:generate_daily_report:21 - daily_export/langchain-ai_langchain/2024-09-02_prs.md
+2024-09-02 14:00:57 | DEBUG    | gpt4:generate_daily_report:25 - message costs tokens: 463
+2024-09-02 14:01:01 | DEBUG    | gpt4:generate_daily_report:31 - ChatCompletion(id='chatcmpl-A2uPRT8OaFR7kAANMKHIvyAz8Eps6', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='# langchain-ai/langchain 2024-09-02\n\n## 主要变更\n* 添加了 `huggingface_pipeline_model_property` 功能。\n* 修复了Cassandra文档中的拼写错误。\n* 讨论并审查了文档中的流程。\n* 在基础教程中移除了未使用的导入。\n* 尝试移除v0.2重写版本。\n* 更新了HuggingFace pipeline的文档，说明如果未设置 `return_full_text`，将返回提示。\n\n## 处理的问题\n* 修复了Cassandra相关的文档拼写错误问题。\n* 清理了代码，移除未使用的导入。\n* 改进了文档描述，使其更加清晰。\n\n## 总结\n在此时间范围内，该项目在功能上进行了多项更新与优化，主要集中在文档修正及一些功能的细化改进上，解决了一些拼写和未使用代码的问题。整体上项目动态活跃。', refusal=None, role='assistant', function_call=None, tool_calls=None))], created=1725256857, model='gpt-4o-mini-2024-07-18', object='chat.completion', service_tier=None, system_fingerprint='fp_f905cf32a9', usage=CompletionUsage(completion_tokens=216, prompt_tokens=466, total_tokens=682))
+2024-09-02 14:01:01 | DEBUG    | report_generator:get_report_content:86 - Reports generated successfully.
+2024-09-02 14:01:01 | INFO     | daemon_process:github_job:19 - end to generate report for langchain-ai/langchain
+2024-09-02 14:01:01 | INFO     | notifier:send_email:25 - 准备发送邮件
+2024-09-02 14:01:06 | DEBUG    | notifier:send_email:37 - 登录SMTP服务器
+2024-09-02 14:01:07 | INFO     | notifier:send_email:40 - 邮件发送成功！
+2024-09-02 14:01:07 | INFO     | notifier:notify:20 - 邮件已发送
+2024-09-02 14:01:07 | INFO     | daemon_process:hacker_news_job:34 - begin hacker news job...
+2024-09-02 14:01:08 | DEBUG    | gpt4:generate_daily_report:25 - message costs tokens: 1162
+2024-09-02 14:01:13 | DEBUG    | gpt4:generate_daily_report:31 - ChatCompletion(id='chatcmpl-A2uPejmla71Zu189J9yefvsObHt8j', choices=[Choice(finish_reason='stop', index=0, logprobs=None, message=ChatCompletionMessage(content='# Hacker News 技术洞察\n\n## 时间：2024年9月1日\n\n## 技术前沿趋势与热点话题\n\n1. **个人项目的活力**：项目如"Linkpreview"和"OrbStack"的展示突显了开发者在构建和分享个人项目方面的活跃性与热情，尤其是在改善工作流程和工具简化方面。\n\n2. **隐私与安全性**：针对公司内部密码存储和分享的讨论（"Ask HN: How to store and share passwords in a company?"）反映了对于安全性与隐私问题的高度关注，显示出企业对于网络安全策略的需求正在增加。\n\n3. **新兴技术学习**：关于“编程零知识证明”（Programming Zero Knowledge Proofs）和“基于树状语法的语言”（Tbsp）等话题的探索，代表了技术爱好者对前沿技术，尤其是隐私保护与程序分析语言的学习兴趣。\n\n4. **复古计算机的吸引力**：一系列涉及复古计算和计算机历史的文章表明，历史计算技术和过去的工程实践仍然对现在的开发者有其启发作用，这种热情正在推动社区对传统技术的重新审视。\n\n5. **性能与优化方法**：文章如“极限Pi引导优化”（Extreme Pi Boot Optimization）引发了对提升软硬件效能的关注，显示出开发者对系统性能优化的持续追求与实验性探索。', refusal=None, role='assistant', function_call=None, tool_calls=None))], created=1725256870, model='gpt-4o-mini-2024-07-18', object='chat.completion', service_tier=None, system_fingerprint='fp_f33667828e', usage=CompletionUsage(completion_tokens=332, prompt_tokens=1165, total_tokens=1497))
+2024-09-02 14:01:13 | INFO     | notifier:send_email:25 - 准备发送邮件
+2024-09-02 14:01:18 | DEBUG    | notifier:send_email:37 - 登录SMTP服务器
+2024-09-02 14:01:18 | INFO     | notifier:send_email:40 - 邮件发送成功！
+2024-09-02 14:01:19 | INFO     | notifier:notify:20 - 邮件已发送

@@ -13,7 +13,7 @@ class GPT4Module:
             api_key=os.environ.get("OPENAI_API_KEY"),
         )
         self.conf = Config().config
-        self.model = self.conf["model"]["gpt_4o_mini"]["name"]
+        self.model = self.conf["model"]["gpt"]["name"]
 
     def generate_daily_report(self, system_prompt, markdown_content):
         logger = LogManager().logger

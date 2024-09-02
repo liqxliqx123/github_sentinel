@@ -7,3 +7,4 @@ tiktoken~=0.7.0
 gradio~=4.42.0
 markdown2~=2.5.0
 beautifulsoup4~=4.12.3
+zhipuai~=2.1.4.20230814

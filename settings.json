@@ -1,20 +1,21 @@
 {
-  "export_base_dir_name": "daily_export",
-  "report_dir_name": "daily_report",
   "subscriptions": {
     "github": [
       "langchain-ai/langchain"
     ]
   },
   "check_interval": "daily",
-  "model_name": "gemma2",
+  "model_key": "glm",
   "model": {
-    "gpt_4o_mini": {
+    "gpt": {
       "name": "gpt-4o-mini"
     },
     "gemma2": {
       "name": "gemma2",
       "url": "http://localhost:11434/api/chat"
+    },
+    "glm": {
+      "name": "glm-4-0520"
     }
   },
   "log": {

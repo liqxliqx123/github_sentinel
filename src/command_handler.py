@@ -1,20 +1,11 @@
-from src.utils.logger import LogManager
+from utils.logger import LogManager
 
 
-def handle_command(subscription_manager, update_fetcher, scheduler, report_generator, exporter):
-    logger = LogManager.get_logger()
+def handle_command(subscription_manager, update_fetcher, report_generator, exporter):
+    logger = LogManager().logger
     while True:
-        command = input("Enter command (add, remove, list, fetch, export, report, help, exit): ")
-
-        if command == "add":
-            repo = input("Enter repository to subscribe (username/repo): ")
-            subscription_manager.add_subscription(repo)
-            logger.info(f"Subscribed to {repo}.")
-        elif command == "remove":
-            repo = input("Enter repository to unsubscribe (username/repo): ")
-            subscription_manager.remove_subscription(repo)
-            logger.info(f"Unsubscribed from {repo}.")
-        elif command == "list":
+        command = input("Enter command (list, fetch, export, report, help, exit): ")
+        if command == "list":
             subscriptions = subscription_manager.subscriptions
             if subscriptions:
                 logger.info("Current Subscriptions:")
@@ -39,7 +30,7 @@ def handle_command(subscription_manager, update_fetcher, scheduler, report_gener
             if updates:
                 markdown_files = []
                 for repo, data in updates.items():
-                    markdown_files.extend(exporter.export_all(repo, data['issues'], data['pull_requests']))
+                    markdown_files.append(exporter.export_all(repo, data['issues'], data['pull_requests']))
                 for file in markdown_files:
                     report_generator.generate_daily_report(file)
                 logger.info("Reports generated successfully.")
@@ -55,35 +46,28 @@ def handle_command(subscription_manager, update_fetcher, scheduler, report_gener
 
 
 def print_help():
-    logger = LogManager.get_logger()
+    logger = LogManager().logger
     help_text = """
 GithubSentinel - Interactive Command Line Tool
 
 Available Commands:
-1. add:       Add a new repository to the subscription list.
-              Usage: add
-              Example: Enter 'username/repo' when prompted.
 
-2. remove:    Remove a repository from the subscription list.
-              Usage: remove
-              Example: Enter 'username/repo' when prompted.
-
-3. list:      List all currently subscribed repositories.
+ list:      List all currently subscribed repositories.
               Usage: list
 
-4. fetch:     Fetch the latest updates for all subscribed repositories.
+ fetch:     Fetch the latest updates for all subscribed repositories.
               Usage: fetch
 
-5. export:    Export fetched updates to Markdown files.
+ export:    Export fetched updates to Markdown files.
               Usage: export
 
-6. report:    Generate a summary report from exported Markdown files using LLM.
+ report:    Generate a summary report from exported Markdown files using LLM.
               Usage: report
 
-7. help:      Display this help message.
+ help:      Display this help message.
               Usage: help
 
-8. exit:      Exit the GithubSentinel tool.
+ exit:      Exit the GithubSentinel tool.
               Usage: exit
 """
     logger.info(help_text)

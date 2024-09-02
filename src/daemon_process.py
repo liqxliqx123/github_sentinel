@@ -14,11 +14,10 @@ def github_job(timedelta: int):
     subscribed_repos = Config().config["subscriptions"]["github"]
     for repo in subscribed_repos:
         logger.info(f"begin to generate report for {repo}")
-        issue_content, pr_content, _, _ = ReportGenerator().get_report_content(
+        report_content, _ = ReportGenerator().get_report_content(
             repo, timedelta)
         logger.info(f"end to generate report for {repo}")
-        content = f"{issue_content}\n\n{pr_content}"
-        Notifier().notify(f"[GitHubSentinel]{repo} 进展简报", content)
+        Notifier().notify(f"[GitHubSentinel]{repo} 进展简报", report_content)
 
 
 def run_github_job():

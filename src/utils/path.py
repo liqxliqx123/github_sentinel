@@ -13,7 +13,13 @@ def get_settings_json_path():
 
 # 获取daily_export的路径
 def get_daily_export_path():
-    return os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(get_current_file_path()))), 'daily_export')
+    return os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(get_current_file_path()))), 'export')
+
+def get_daily_report_path():
+    report_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(get_current_file_path()))), 'report')
+    if not os.path.exists(report_path):
+        os.makedirs(report_path, exist_ok=True)
+    return report_path
 
 
 # 获取prompt的路径

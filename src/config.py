@@ -37,6 +37,11 @@ class Config:
             raise Exception(
                 "No EMAIL password found. Please set the MAIL_POP3_PASSWORD environment variable or provide it in the config file.")
 
+        zhipu_api_key = os.getenv("ZHIPU_API_KEY")
+        if not mail_password:
+            raise Exception(
+                "No ZHIPU api key found. Please set the ZHIPU_API_KEY environment variable or provide it in the config file.")
+
         config['github_token'] = token
         self.config = config
         Config._global_config = config

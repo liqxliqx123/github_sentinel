@@ -1,8 +1,8 @@
-from src.config import Config
-from src.init import Initializer
-from src.utils.logger import LogManager
+from config import Config
+from init import Initializer
+from utils.logger import LogManager
 
 if __name__ == "__main__":
-    config = Config.load()
+    config = Config().config
     LogManager()
-    Initializer()
+    Initializer().command_run()
