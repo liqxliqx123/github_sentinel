@@ -36,7 +36,7 @@ class GPT4Module:
         if report_type == "github":
             file_path = os.path.join(get_gpt_4o_mini_prompt_path(), "github_prompt.txt")
         else:
-            file_path = os.path.join(get_gpt_4o_mini_prompt_path(), "hacker_news_prompt.txt")
+            file_path = os.path.join(get_gpt_4o_mini_prompt_path(), "hacker_news_daily_report_prompt.txt")
         with open(file_path, "r", encoding="utf-8") as f:
             system_prompt = f.read()
             return self.generate_daily_report(system_prompt, markdown_content)

@@ -1,10 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
 
+from config import Config
+from utils.logger import LogManager
+
 
 def fetch_hackernews_top_stories():
-    url = 'https://news.ycombinator.com/'
-    response = requests.get(url)
+    logger = LogManager().logger
+    logger.debug("开始爬取 Hacker News...")
+    conf = Config().config
+    url = conf['hacker_news']['url']
+    response = requests.get(url, timeout=30)
+    logger.debug(f"爬取完成, status code: {response.status_code}")
     response.raise_for_status()  # 检查请求是否成功
 
     soup = BeautifulSoup(response.text, 'html.parser')

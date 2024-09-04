@@ -4,13 +4,16 @@
       "langchain-ai/langchain"
     ]
   },
+  "hacker_news": {
+    "url": "https://news.ycombinator.com/"
+  },
   "check_interval": "daily",
-  "model_key": "glm",
+  "model_key": "ollama",
   "model": {
     "gpt": {
       "name": "gpt-4o-mini"
     },
-    "gemma2": {
+    "ollama": {
       "name": "gemma2",
       "url": "http://localhost:11434/api/chat"
     },
@@ -23,13 +26,14 @@
     "dir": "logs"
   },
   "dry_run": false,
-  "schedule": {
+  "daemon": {
     "github": {
       "freq_days": 1,
       "execution_time": "08:00"
     },
     "hacker_news": {
       "freq_days": 1,
+      "freq_hours": 8,
       "execution_time": "08:00"
     }
   },

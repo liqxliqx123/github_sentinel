@@ -12,7 +12,7 @@ class LLM:
         model_key = conf["model_key"]
         if model_key == LLMModuleType.GPT.value:
             self._model = GPT4Module()
-        elif model_key == LLMModuleType.GEMMA2.value:
+        elif model_key == LLMModuleType.OLLAMA.value:
             self._model = Gemma2Model()
         elif model_key == LLMModuleType.GLM.value:
             self._model = ZhipuAIModule()

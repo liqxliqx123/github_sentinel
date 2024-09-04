@@ -1,0 +1,8 @@
+2024-09-03 18:27:27 | ERROR    | report_generator:generate_hacker_news_report:101 - Error generating hacker news report: 'Completion' object has no attribute 'status_code'
+2024-09-03 23:10:59 | ERROR    | report_generator:generate_hacker_news_daily_report:111 - Error generating hacker news report: Error code: 400, with error text {"error":{"code":"1213","message":"未正常接收到prompt参数。"}}
+2024-09-03 23:16:05 | ERROR    | report_generator:generate_hacker_news_daily_report:111 - Error generating hacker news report: Error code: 400, with error text {"error":{"code":"1213","message":"未正常接收到prompt参数。"}}
+2024-09-03 23:16:43 | ERROR    | report_generator:generate_hacker_news_daily_report:111 - Error generating hacker news report: Error code: 400, with error text {"error":{"code":"1213","message":"未正常接收到prompt参数。"}}
+2024-09-03 23:19:30 | ERROR    | report_generator:generate_hacker_news_daily_report:112 - Error generating hacker news report: Error code: 400, with error text {"error":{"code":"1213","message":"未正常接收到prompt参数。"}}
+2024-09-03 23:19:58 | ERROR    | report_generator:generate_hacker_news_daily_report:112 - Error generating hacker news report: Error code: 400, with error text {"error":{"code":"1213","message":"未正常接收到prompt参数。"}}
+2024-09-04 11:16:02 | ERROR    | report_generator:generate_hacker_news_daily_report:111 - Error generating hacker news report: Error code: 400, with error text {"error":{"code":"1211","message":"模型不存在，请检查模型代码。"}}
+2024-09-04 14:08:00 | ERROR    | report_generator:generate_hacker_news_daily_report:114 - Error generating hacker news report: 'time_now'
