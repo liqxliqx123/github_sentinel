@@ -6,7 +6,7 @@ from config import Config
 class TokenCounter:
     def __init__(self):
         conf = Config().config
-        self.model = conf["model_name"]
+        self.model = conf["model"]["gpt"]["name"]
         self.encoding = tiktoken.encoding_for_model(self.model)
 
     def count_tokens(self, text: str) -> int:

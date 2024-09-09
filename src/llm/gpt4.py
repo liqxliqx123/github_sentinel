@@ -14,21 +14,25 @@ class GPT4Module:
         )
         self.conf = Config().config
         self.model = self.conf["model"]["gpt"]["name"]
+        self.logger = LogManager().logger
 
     def generate_daily_report(self, system_prompt, markdown_content):
-        logger = LogManager().logger
         prompt = f"{markdown_content}"
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": prompt}
         ]
-        logger.debug(f"message costs tokens: {TokenCounter().count_message_tokens(messages)}")
+        self.logger.debug(f"message costs tokens: {TokenCounter().count_message_tokens(messages)}")
         if not self.conf["dry_run"]:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=messages
-            )
-            logger.debug(response)
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=messages
+                )
+            except Exception as e:
+                self.logger.error(f"调用openAI接口失败: {e}")
+                return ""
+            self.logger.debug("调用openAI接口成功")
             return response.choices[0].message.content
         return ""
 

@@ -1,0 +1,5 @@
+2024-09-09 16:34:40 | ERROR    | hacker_news:fetch_hackernews_top_stories:18 - 请求失败: An error occurred
+2024-09-09 16:57:34 | ERROR    | gpt4:generate_daily_report:33 - 调用openAI接口失败: Connection error.
+2024-09-09 17:00:21 | ERROR    | gpt4:generate_daily_report:33 - 调用openAI接口失败: Connection error.
+2024-09-09 17:01:28 | ERROR    | gpt4:generate_daily_report:33 - 调用openAI接口失败: Connection error.
+2024-09-09 17:06:51 | ERROR    | gpt4:generate_daily_report:33 - 调用openAI接口失败: Connection error.

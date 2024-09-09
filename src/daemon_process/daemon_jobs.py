@@ -1,9 +1,9 @@
 import sys
 from pathlib import Path
 
-current_file_path = Path(__file__).resolve()
-project_root = current_file_path.parent.parent
-sys.path.insert(0, str(project_root))
+    current_file_path = Path(__file__).resolve()
+    project_root = current_file_path.parent.parent
+    sys.path.insert(0, str(project_root))
 
 import time
 import schedule

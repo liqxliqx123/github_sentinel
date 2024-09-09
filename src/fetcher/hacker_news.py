@@ -10,9 +10,13 @@ def fetch_hackernews_top_stories():
     logger.debug("开始爬取 Hacker News...")
     conf = Config().config
     url = conf['hacker_news']['url']
-    response = requests.get(url, timeout=30)
-    logger.debug(f"爬取完成, status code: {response.status_code}")
-    response.raise_for_status()  # 检查请求是否成功
+    try:
+        response = requests.get(url, timeout=30)
+        logger.debug(f"爬取完成, status code: {response.status_code}")
+        response.raise_for_status()  # 检查请求是否成功
+    except Exception as e:
+        logger.error(f"请求失败: {e}")
+        return []
 
     soup = BeautifulSoup(response.text, 'html.parser')
     # 查找包含新闻的所有 <tr> 标签
